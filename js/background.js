@@ -34,8 +34,8 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResp) {
         autolock = JSON.parse(msg.autolock);
         if (autolock.type == "default")
             return;
-            console.log(autolock);
-            console.log(parseInt(autolock.mn) * 60,autolock.mn * 60);
+        console.log(autolock);
+        console.log(parseInt(autolock.mn) * 60,autolock.mn * 60);
         chrome.idle.setDetectionInterval(parseInt(autolock.mn) * 60);
         chrome.idle.onStateChanged.addListener(
             function(state) {
@@ -227,6 +227,57 @@ async function performTransaction(data, tab) {
 
                 }
                 break;
+            case "addAccountAuthority":
+                steem.broadcast.addAccountAuth({
+                    signingKey: key,
+                    username: data.username,
+                    authorizedUsername: data.authorizedUsername,
+                    role: data.role.toLowerCase(),
+                    weight: parseInt(data.weight)
+                }, function(err, result) {
+                    console.log(err, result);
+                    const message = {
+                        command: "answerRequest",
+                        msg: {
+                            success: err == null,
+                            error: err,
+                            result: result,
+                            data: data,
+                            message: err == null ? "The transaction has been broadcasted successfully." : "There was an error broadcasting this transaction, please try again.",
+                            request_id: request_id
+                        }
+                    };
+                    chrome.tabs.sendMessage(tab, message);
+                    chrome.runtime.sendMessage(message);
+                    key = null;
+                    accounts = null;
+                });
+                break;
+            case "removeAccountAuthority":
+                steem.broadcast.removeAccountAuth({
+                    signingKey: key,
+                    username: data.username,
+                    authorizedUsername: data.authorizedUsername,
+                    role: data.role.toLowerCase(),
+                }, function(err, result) {
+                    console.log(err, result);
+                    const message = {
+                        command: "answerRequest",
+                        msg: {
+                            success: err == null,
+                            error: err,
+                            result: result,
+                            data: data,
+                            message: err == null ? "The transaction has been broadcasted successfully." : "There was an error broadcasting this transaction, please try again.",
+                            request_id: request_id
+                        }
+                    };
+                    chrome.tabs.sendMessage(tab, message);
+                    chrome.runtime.sendMessage(message);
+                    key = null;
+                    accounts = null;
+                });
+                break;
             case "broadcast":
                 const operations = data.operations;
                 const broadcastKeys = {};
@@ -326,6 +377,36 @@ async function performTransaction(data, tab) {
                     chrome.runtime.sendMessage(message);
                     key = null;
                     accounts = null;
+                });
+                break;
+            case "sendToken":
+                const id = "ssc-00000000000000000002";
+                const json = {
+                    "contractName": "tokens",
+                    "contractAction": "transfer",
+                    "contractPayload": {
+                        "symbol": data.currency,
+                        "to": data.to,
+                        "quantity": parseFloat(data.amount),
+                        "memo":data.memo
+                    }
+                };
+                steem.broadcast.customJson(key, [data.username], null, id, JSON.stringify(json), function(error, result) {
+                  const message = {
+                      command: "answerRequest",
+                      msg: {
+                          success: error == null,
+                          error: error,
+                          result: result,
+                          data: data,
+                          message: error == null ? "The transaction has been broadcasted successfully." : "There was an error broadcasting this transaction, please try again.",
+                          request_id: request_id
+                      }
+                  };
+                  chrome.tabs.sendMessage(tab, message);
+                  chrome.runtime.sendMessage(message);
+                  key = null;
+                  accounts = null;
                 });
                 break;
             case "decode":
@@ -508,7 +589,13 @@ function checkBeforeCreate(request, tab, domain) {
                         createPopup(function() {
                             sendErrors(tab, "user_cancel", "Request was canceled by the user.", "The current website is trying to send a request to the Steem Keychain browser extension for account @" + request.username + " using the memo key, which has not been added to the wallet.", request);
                         });
-                    } else {
+                    }
+                    else if (tr_accounts.length==0){
+                      createPopup(function() {
+                        sendErrors(tab, "user_cancel", "Request was canceled by the user.", "The current website is trying to send a transfer request to the Steem Keychain browser extension for account @" + request.username + " using the active key, which has not been added to the wallet.", request);
+                      });
+                    }
+                    else {
                         function callback() {
                             chrome.runtime.sendMessage({
                                 command: "sendDialogConfirm",
@@ -615,11 +702,16 @@ function getRequiredWifType(request) {
         case "custom":
             return (request.method == null || request.method == undefined) ? "posting" : request.method.toLowerCase();
             break;
+        case "addAccountAuthority":
+        case "removeAccountAuthority":
         case "broadcast":
             return request.method.toLowerCase();
         case "signedCall":
             return request.typeWif.toLowerCase();
         case "transfer":
+            return "active";
+            break;
+        case "sendToken":
             return "active";
             break;
         case "delegation":

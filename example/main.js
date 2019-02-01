@@ -41,10 +41,19 @@ $("#send_custom").click(function() {
 
 // Send transfer request
 $("#send_tra").click(function() {
+  console.log("transfer");
     steem_keychain.requestTransfer($("#transfer_username").val(), $("#transfer_to").val(), $("#transfer_val").val(), $("#transfer_memo").val(), $("#transfer_currency option:selected").text(), function(response) {
         console.log('main js response - transfer');
         console.log(response);
     }, $("#transfer_enforce").is(":checked"));
+});
+
+// Send tokens request
+$("#sendTokens").click(function() {
+    steem_keychain.requestSendToken($("#tokens_username").val(), $("#tokens_to").val(), $("#tokens_qt").val(), $("#tokens_memo").val(), $("#tokens_unit").val(), function(response) {
+        console.log('main js response - tokens');
+        console.log(response);
+    });
 });
 
 // Send delegation
@@ -58,6 +67,20 @@ $("#send_delegation").click(function() {
 $("#send_signature").click(function() {
     steem_keychain.requestSignBuffer($("#sign_username").val(), $("#sign_message").val(), $("#sign_method option:selected").text(), function(response) {
         console.log('main js response - sign');
+        console.log(response);
+    });
+});
+
+$("#send_addauth").click(function() {
+    steem_keychain.requestAddAccountAuthority($("#addauth_username").val(), $("#addauth_authorized_username").val(), $("#addauth_role option:selected").text(), $("#addauth_weight").val(), function(response) {
+        console.log('main js response - add auth');
+        console.log(response);
+    });
+});
+
+$("#send_removeauth").click(function() {
+    steem_keychain.requestRemoveAccountAuthority($("#removeauth_username").val(), $("#removeauth_authorized_username").val(), $("#removeauth_role option:selected").text(), function(response) {
+        console.log('main js response - remove auth');
         console.log(response);
     });
 });

@@ -31,6 +31,31 @@ var steem_keychain = {
         this.dispatchCustomEvent("swRequest", request, callback);
     },
 
+    requestAddAccountAuthority: function(account, authorizedUsername, role, weight, callback) {
+        var request = {
+            type: "addAccountAuthority",
+            username: account,
+            authorizedUsername,
+            role,
+            weight,
+            method: "Active"
+        };
+
+        this.dispatchCustomEvent("swRequest", request, callback);
+    },
+
+    requestRemoveAccountAuthority: function(account, authorizedUsername, role, callback) {
+        var request = {
+            type: "removeAccountAuthority",
+            username: account,
+            authorizedUsername,
+            role,
+            method: "Active"
+        };
+
+        this.dispatchCustomEvent("swRequest", request, callback);
+    },
+
     requestBroadcast: function(account, operations, key, callback) {
         var request = {
             type: "broadcast",
@@ -102,6 +127,17 @@ var steem_keychain = {
             amount: amount,
             memo: memo,
             enforce: enforce,
+            currency: currency
+        };
+        this.dispatchCustomEvent("swRequest", request, callback);
+    },
+    requestSendToken: function(account, to, amount, memo, currency, callback) {
+        var request = {
+            type: "sendToken",
+            username: account,
+            to: to,
+            amount: amount,
+            memo: memo,
             currency: currency
         };
         this.dispatchCustomEvent("swRequest", request, callback);

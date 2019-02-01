@@ -1,13 +1,12 @@
 let tokens = [];
 let accountTokenBalances = [];
 const urlSSC = [
-    "https://steemsmartcontracts.tk",
-    "https://testapi.steem-engine.com"
+    "https://api.steem-engine.com/rpc"
 ];
-const ssc = new SSC(urlSSC[0]);
+const ssc = new SSC(urlSSC[1]);
 let hidden_tokens = [];
+const steemEngine="https://api.steem-engine.com/accounts";
 
-//chrome.storage.local.set({hidden_tokens:JSON.stringify([])});
 chrome.storage.local.get(['hidden_tokens'], function(items) {
     if (items.hidden_tokens)
         hidden_tokens = JSON.parse(items.hidden_tokens || []);
@@ -70,7 +69,8 @@ function showTokenBalances(account) {
             $("#tokens_list").append("<div class='row_token_balance'>\
       <span>" + addCommas(token.balance) + "</span>\
       <span class='symbol_owned_token'>" + token.symbol + "</span>\
-      <img src='../images/transfer.png' class='send_token_icon'/>\
+      <img src='../images/history.png' class='history_token_icon'/>\
+      <img src='../images/transfer.png' class='send_token_icon' symbol='" + token.symbol + "'/>\
       </div>");
         }
 
@@ -95,15 +95,43 @@ function showTokenBalances(account) {
         }
 
         $(".send_token_icon").unbind("click").click(function() {
-            const symbol = $(this).prev().html();
-            const balance = accountTokenBalances.filter((e) => {
-                return e.symbol == symbol;
-            })[0].balance;
+            const symbol = $(this).attr('symbol');
+            const balance = accountTokenBalances.find(e => e.symbol == symbol).balance;
             $("#token_send_div .back_enabled").html("Send " + symbol);
             $("#tok").html(symbol);
             $(".token_right").html(addCommas(balance));
             $("#token_send_div").show();
             $("#tokens_div").hide();
+        });
+
+        $(".history_token_icon").unbind("click").click(function() {
+            $("#history_tokens_rows").empty();
+            const symbol = $(this).prev().html();
+            $("#token_history_div .back_enabled").html(symbol+" History");
+            $("#token_history_div").show();
+            $("#tokens_div").hide();
+            $("#loading_history_token").show();
+            getTokenHistory(active_account.name,20,0,symbol).then(function(history){
+              for (elt of history){
+                const date = new Date(elt.timestamp);
+                const timestamp = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+                console.log(elt.memo)
+                $("#history_tokens_rows").append(
+                  "<div class='history_tokens_row "+(elt.memo!=null?"history_row_memo":"")+"'>\
+                    <span class='history_date ' title='"+elt.timestamp+"'>" + timestamp + "</span>\
+                    <span class='history_val'>" + (elt.from == active_account.name ? "-" : "+") + " " + elt.quantity + "</span>\
+                    <span class='history_name'>" + (elt.from == active_account.name ? "TO: @" + elt.to : "FROM: @" + elt.from) +"</span>\
+                    <span class='history_cur'>" + elt.symbol + "</span>\
+                    <div class='history_memo'>" + elt.memo + "</div>\
+                  </div>"
+                );
+              }
+              $("#loading_history_token").hide();
+              $(".history_tokens_row").unbind("click").click(function(){
+                  if($(this).find(".history_memo").html()!="null")
+                    $(this).find(".history_memo").toggle();
+              });
+            });
         });
     });
 }
@@ -123,7 +151,7 @@ function getAccountBalances(account) {
 }
 
 async function sendToken(account_to, token, amount,memo) {
-    const id = "ssc-00000000000000000002";
+    const id = "ssc-mainnet1";
     const json = {
         "contractName": "tokens",
         "contractAction": "transfer",
@@ -150,8 +178,11 @@ async function sendToken(account_to, token, amount,memo) {
                 if (res && res.confirmed) {
 									if(res.error)
 										showError('Transaction error: ' + res.error);
-									else
+									else{
 										showConfirm("Tokens sent succesfully!");
+                    $("#token_send_div").hide();
+                    $("#tokens_div").show();
+                  }
 								} else
                   showError("Transaction timed out without response. Please double check your token balance before trying to send again.");
             });
@@ -189,7 +220,7 @@ function getDelayedTransactionInfo(trxID) {
 }
 
 $("#send_tok").click(function() {
-    sendToken($("#send_tok_to").val(), $("#tok").html(), $("#amt_tok").val());
+    sendToken($("#send_tok_to").val(), $("#tok").html(), $("#amt_tok").val(),$("#memo_tok").val());
 });
 
 function checkAccountExists(account){
@@ -203,18 +234,22 @@ function checkAccountExists(account){
   });
 }
 
-function addCommas(nStr, currency) {
-	nStr += '';
-	x = nStr.split('.');
-	x1 = x[0];
-	x2 = x.length > 1 ? '.' + x[1] : ''
-	var rgx = /(\d+)(\d{3})/;
-	while (rgx.test(x1)) {
-			x1 = x1.replace(rgx, '$1' + ',' + '$2');
-	}
-
-	if (x2 == '' && currency == 1)
-			x2 = '.00';
-
-	return x1 + x2;
+function getTokenHistory(account,limit,offset,currency){
+  return new Promise(function(fulfill,reject){
+    $.ajax({
+        type: "GET",
+        beforeSend: function(xhttp) {
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("X-Parse-Application-Id", chrome.runtime.id);
+        },
+        url: steemEngine+"/history?account="+account+"&limit="+limit+"&offset="+offset+"&type=user&symbol="+currency,
+        success: function(tokenHistory) {
+            fulfill(tokenHistory);
+        },
+        error: function(msg) {
+            console.log(msg);
+            reject(msg);
+        }
+    });
+  });
 }
