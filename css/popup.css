@@ -949,6 +949,10 @@ input:focus {
     /* optional: just make scrollbar invisible */
 }
 
+scrollbar {
+   -moz-appearance: none !important;
+}
+
 /* optional: show position indicator in red */
 
 .transfer_row {
@@ -1853,6 +1857,11 @@ input:focus {
     cursor: pointer;
 }
 
+#existing_tokens{
+  margin-top: 33px;
+  height: 350px;
+  overflow-y: scroll;
+}
 .row_existing_tokens span {
     display: inline-block;
 }
@@ -1970,4 +1979,8 @@ input:focus {
 
 .history_row_memo{
   cursor: pointer;
+}
+
+.no-scrollbar{
+  scrollbar-width: none !important;
 }
