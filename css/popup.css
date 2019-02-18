@@ -70,7 +70,9 @@ body {
 #outgoing_del_div,
 #incoming_del_div,
 #edit_del_div,
-#token_history_div {
+#token_history_div,
+#add_existing_account_div,
+#add_new_account_div {
     width: 350px;
     height: 100%;
     box-sizing: border-box;
@@ -166,7 +168,9 @@ input:focus {
 #edit_del_div input,
 #powerup_div input,
 #token_send_div input,
-#powerdown_div input {
+#powerdown_div input,
+#add_existing_account_div input,
+#add_new_account_div input {
     width: 100%;
     box-sizing: border-box;
     height: 48.43px;
@@ -220,7 +224,9 @@ input:focus {
 #edit_del_div button,
 #token_send_div button,
 #powerup_div button,
-#powerdown_div button {
+#powerdown_div button,
+#add_existing_account_div button,
+#add_new_account_div button {
     border-radius: 5px;
     width: 100%;
     height: 48.43px;
@@ -254,7 +260,10 @@ input:focus {
 #delegation_div button:hover,
 #edit_del:hover,
 #vote_wit:hover,
-#token_send_div button:hover {
+#token_send_div button:hover,
+#button_add_new_account:hover,
+#button_add_existing_account:hover,
+#purchase_account:hover {
     background-color: #917FC6;
     border: solid 1px #917FC6;
 }
@@ -357,7 +366,9 @@ input:focus {
 #outgoing_del_div,
 #incoming_del_div,
 #edit_del_div,
-#token_history_div {
+#token_history_div,
+#add_existing_account_div,
+#add_new_account_div {
     display: none;
 }
 
@@ -1970,4 +1981,17 @@ input:focus {
 
 .history_row_memo{
   cursor: pointer;
+}
+
+#button_add_existing_account {
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+#add_account_div .back_enabled , #add_new_account_div .back_enabled {
+  margin-bottom: 30px;
+}
+
+#add_new_account_div input {
+  margin-top: 30px;
 }

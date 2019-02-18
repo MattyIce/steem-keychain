@@ -5,6 +5,8 @@ function initializeVisibility() {
     $("#accounts").html("");
     $("#claim").hide();
     $("#add_account_div").hide();
+    $("#add_existing_account_div").hide();
+    $("#add_new_account_div").hide();
     $(".error_div").hide();
     $(".success_div").hide();
     $("#master_check").hide();
@@ -143,7 +145,7 @@ $("#preferences").click(async function() {
 // After checking master key, go back to Add Account Page
 $(".back_add_key").click(function() {
     $("#master_check").hide();
-    $("#add_account_div").show();
+    $("#add_existing_account_div").show();
 });
 
 // Go to clear wallet page
@@ -355,4 +357,24 @@ $("#token_send_div .back_enabled").click(function() {
 $("#token_history_div .back_enabled").click(function() {
     $("#token_history_div").hide();
     $("#tokens_div").show();
+});
+
+$("#button_add_new_account").click(function(){
+    $("#add_account_div").hide();
+    $("#add_new_account_div").show();
+});
+
+$("#button_add_existing_account").click(function(){
+  $("#add_account_div").hide();
+  $("#add_existing_account_div").show();
+});
+
+$("#add_existing_account_div .back_enabled").click(function(){
+    $("#add_account_div").show();
+    $("#add_existing_account_div").hide();
+});
+
+$("#add_new_account_div .back_enabled").click(function(){
+    $("#add_account_div").show();
+    $("#add_new_account_div").hide();
 });
