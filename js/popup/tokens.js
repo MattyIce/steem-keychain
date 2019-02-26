@@ -158,7 +158,7 @@ async function sendToken(account_to, token, amount,memo) {
         "contractPayload": {
             "symbol": token,
             "to": account_to,
-            "quantity": parseFloat(amount),
+            "quantity": amount,
             "memo":memo
         }
     };
