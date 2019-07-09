@@ -187,6 +187,7 @@ function initializeMainMenu() {
                 $(".usernames select").append("<option>" + account.name + "</option>");
             }
             $(".usernames select").eq(0).append("<option name='add_account'>Add New Account</option>");
+            $(".usernames select").eq(0).append("<option name='add_account'>Add DTube Account</option>");
             initiateCustomSelect();
         } else {
             $("#main").hide();
