@@ -3,10 +3,46 @@ const REVEAL_PRIVATE="Click to show private key";
 // Load account information
 function loadAccount(name) {
     console.log("Load account " + name);
+    $(".wallet_infos").html("...");
+    $("#vm").html("...");
+    $("#rc").html("...");
+    $("#claim").hide();
+    if(name.includes("(DTC)"))
+      loadDTubeAccount(name.split(" ")[0]);
+    else
+      loadSteemAccount(name);
+  }
+
+function loadDTubeAccount(name){
+    $(".dtube").show();
+    $(".steem").hide();
+    let account = accounts_json.list.find(function(obj, i) {
+        return obj.name === name&&obj.type=="dTube";
+    });
+    active_account = account;
+    $( "#recipient" ).autocomplete({
+      source: to_autocomplete[active_account.name],
+      minLength: 2,
+      appendTo:"#autocomplete_container"
+    });
+    javalon.getAccount(account.name, async function(err, account) {
+        if (account.length != 0) {
+            console.log(account);
+            const vm = javalon.votingPower(account);
+            const rc=javalon.bandwidth(account);
+            $("#vm").text(numberWithCommas(vm) + " VP");
+            $("#rc").text(numberWithCommas(rc)+" bytes");
+        }
+    });
+}
+
+function loadSteemAccount(name){
+    $(".dtube").hide();
+    $(".steem").show();
     let account = accounts_json.list.filter(function(obj, i) {
-        return obj.name === name;
+        return obj.name === name&&!obj.type;
     })[0];
-    if (account != null && account != undefined) {
+    if (account) {
         active_account = account;
         $( "#recipient" ).autocomplete({
           source: to_autocomplete[active_account.name],
@@ -15,9 +51,7 @@ function loadAccount(name) {
         });
         $("#send_form").toggle(account.keys.hasOwnProperty("active"));
         $("#show_add_active").toggle(!account.keys.hasOwnProperty("active"));
-        $(".wallet_infos").html("...");
-        $("#vm").html("...");
-        $("#rc").html("...");
+
         steem.api.getAccounts([account.name], async function(err, result) {
             if (result.length != 0) {
                 console.log(result);

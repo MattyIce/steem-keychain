@@ -175,7 +175,11 @@ function initializeMainMenu() {
 
             // Add the last account selected to the front of the account list.
             if (items.last_account) {
-                let last = accounts_json.list.find(a => a.name == items.last_account);
+              let last=null;
+              if(items.last_account.includes("(DTC)"))
+                last=accounts_json.list.find(elt => elt.name == items.last_account.split(" ")[0]&&elt.type==="dTube");
+              else
+                last = accounts_json.list.find(elt => elt.name == items.last_account&&!elt.type);
 
                 if (last) {
                     accounts_json.list.splice(accounts_json.list.indexOf(last), 1);
@@ -184,7 +188,8 @@ function initializeMainMenu() {
             }
             $(".usernames").html("<select></select>");
             for (account of accounts_json.list) {
-                $(".usernames select").append("<option>" + account.name + "</option>");
+              console.log(account);
+                $(".usernames select").append("<option>" + account.name +(account.type=="dTube"?" (DTC)":"") +"</option>");
             }
             $(".usernames select").eq(0).append("<option name='add_account'>Add New Account</option>");
             $(".usernames select").eq(0).append("<option name='add_account_dtube'>Add dTube Account</option>");
