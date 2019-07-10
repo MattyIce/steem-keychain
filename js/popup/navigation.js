@@ -5,6 +5,7 @@ function initializeVisibility() {
     $("#accounts").html("");
     $("#claim").hide();
     $("#add_account_div").hide();
+    $("#add_dtube_account_div").hide();
     $(".error_div").hide();
     $(".success_div").hide();
     $("#master_check").hide();
@@ -277,6 +278,13 @@ $("#add_new_account").click(function() {
 
 function showAddAccount() {
     $("#add_account_div").css("display", "block");
+    $("#main").css("display", "none");
+    $("#settings_div").css("display", "none");
+}
+
+
+function showAddDTubeAccount() {
+    $("#add_dtube_account_div").css("display", "block");
     $("#main").css("display", "none");
     $("#settings_div").css("display", "none");
 }

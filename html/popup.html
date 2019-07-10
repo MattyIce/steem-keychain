@@ -156,6 +156,23 @@
         </div>
         <button id="check_add_account">Import keys</button>
     </div>
+    <div id="add_dtube_account_div">
+        <div class="back_menu back_enabled">Set up</div>
+        <p>Enter your dTube account name and private key.
+            <br/><br/> You may add / remove dTube accounts or keys at any time. If
+            you need to create a new dTube account, you can do so at
+            <a href="https://d.tube" target="_blank" style="text-decoration: underline; color: white;">https://d.tube</a>.
+        </p>
+        <div class="input_container">
+            <input type="text" id="username_dtube" placeholder="Username"></input>
+            <img src="../images/arobase.png" class="input_img" />
+        </div>
+        <div class="input_container">
+            <input type="password" id="pwd_dtube" placeholder="Private key"></input>
+            <img src="../images/key.png" class="input_img" />
+        </div>
+        <button id="check_add_account_dtube">Import keys</button>
+    </div>
     <div id="master_check">
         <div class="back_add_key back_enabled">Import Keys</div>
         <p>Import successful! <br><br>Please select the Keys you wish to store with
@@ -612,6 +629,7 @@
     <script src="../vendor/crypto-js.js"></script>
     <script src="../vendor/axios.min.js"></script>
     <script src="../vendor/ssc.min.js"></script>
+    <script src="../vendor/javalon.min.js"></script>
     <script src="../vendor/jquery-autocomplete.min.js"></script>
     <script src="../js/encrypt.js"></script>
     <script src="../js/popup/com.js"></script>

@@ -287,7 +287,9 @@ function initiateCustomSelect() {
             this.classList.toggle("select-arrow-active");
             if (this.innerHTML.includes("Add New Account")) {
                 showAddAccount();
-            } else if (!getPref && !manageKey && !this.classList.contains("select-arrow-active") && this.innerHTML != "SBD" && this.innerHTML != "STEEM") {
+            } else if (this.innerHTML.includes("Add dTube Account")) {
+                showAddDTubeAccount();
+            }else if (!getPref && !manageKey && !this.classList.contains("select-arrow-active") && this.innerHTML != "SBD" && this.innerHTML != "STEEM") {
                 chrome.storage.local.set({
                     last_account: this.innerHTML
                 });

@@ -59,7 +59,7 @@ function loadAccount(name) {
                         preparePowerUpDown(result);
                         showTokenBalances(result[0]);
 										});
-										
+
 
 
                 if (!result[0].proxy && (!result[0].witness_votes.includes("stoodkev") || !result[0].witness_votes.includes("yabapmatt") || !result[0].witness_votes.includes("aggroed"))) {
@@ -204,6 +204,38 @@ $("#check_add_account").click(function() {
                         }
                     }
                 } else {
+                    showError("Please check the username and try again.");
+                }
+            });
+    } else {
+        showError("Please fill the fields.");
+    }
+});
+
+// Adding dTube accounts. Private key must be entered
+$("#check_add_account_dtube").click(function() {
+    $("#master_check").css("display", "none");
+    const username = $("#username_dtube").val();
+    const pwd = $("#pwd_dtube").val();
+    if (username !== "" && pwd !== "") {
+            javalon.getAccount(username, function(err, result) {
+              console.log(err,result);
+                if (result.length != 0) {
+                    const pub = result.pub;
+                    if(javalon.privToPub(pwd)===pub){
+                      addAccount({
+                          name: username,
+                          keys: {
+                              private: pwd,
+                              public: pub
+                          },
+                          type:"dTube"
+                      });
+                    } else {
+                            showError("Incorrect private key or password.");
+                      }
+                    }
+                else {
                     showError("Please check the username and try again.");
                 }
             });
