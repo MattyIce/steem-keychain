@@ -16,6 +16,7 @@ function loadAccount(name) {
 function loadDTubeAccount(name){
     $(".dtube").show();
     $(".steem").hide();
+    $("#account_value_amt").text("Coming soon...");
     let account = accounts_json.list.find(function(obj, i) {
         return obj.name === name&&obj.type=="dTube";
     });
@@ -32,6 +33,7 @@ function loadDTubeAccount(name){
             const rc=javalon.bandwidth(account);
             $("#vm").text(numberWithCommas(vm) + " VP");
             $("#rc").text(numberWithCommas(rc)+" bytes");
+            $(".wallet_infos").eq(0).text(numberWithCommas(account.balance));
         }
     });
 }

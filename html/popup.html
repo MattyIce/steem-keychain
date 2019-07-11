@@ -87,28 +87,34 @@
         <div id="wallet">
             <div id="wallet_amt">
                 <div class="wallet_infos">...</div>
-                <div class="wallet_infos">...</div>
-                <div class="wallet_infos">...</div>
+                <div class="wallet_infos steem">...</div>
+                <div class="wallet_infos steem">...</div>
             </div>
             <div id="wallet_currency">
-                <div class='currency-section'>
+                <div class='currency-section steem'>
                     <div class="wallet_currency">STEEM</div>
                     <div class="dropdown">
                         <div id="send_steem"><img src="../images/transfer.png" />Send STEEM</div>
                         <div id="powerup"><img src="../images/powerup.png" />Power up</div>
                     </div>
                 </div>
-                <div class='currency-section'>
+                <div class='currency-section steem'>
                     <div class="wallet_currency">SBD</div>
                     <div class="dropdown">
                         <div id="send_sbd"><img src="../images/transfer.png" />Send SBD</div>
                     </div>
                 </div>
-                <div class='currency-section'>
+                <div class='currency-section steem'>
                     <div class="wallet_currency" id="wallet_sp">SP</div>
                     <div class="dropdown">
                         <div id="delegate"><img src="../images/delegate.png" />Delegate</div>
                         <div id="powerdown"><img src="../images/powerdown.png" />Power down</div>
+                    </div>
+                </div>
+                <div class='currency-section dtube'>
+                    <div class="wallet_currency" id="wallet_sp">DTC</div>
+                    <div class="dropdown">
+                        <div id="send_dtc"><img src="../images/delegate.png" />Send</div>
                     </div>
                 </div>
             </div>
@@ -118,14 +124,16 @@
             <div class="dropdown">
             </div>
         </div>
-        <div id="account_value">
+        <div id="account_value" >
             <div id="account_value_header">Estimated Account Value</div>
             <div id="account_value_amt" class="wallet_infos">...</div>
         </div>
         <button class="dash-button main-button" id="send">Send</button>
         <button class="dash-button main-button" id="history">History</button>
-        <button class="dash-button main-button" id="tokens">Tokens</button>
-        <button class="dash-button main-button" id="witness">Witness</button>
+        <button class="dash-button main-button steem" id="tokens">Tokens</button>
+        <button class="dash-button main-button steem" id="witness">Witness</button>
+        <button class="dash-button main-button dtube" id="rewards">Rewards</button>
+        <button class="dash-button main-button dtube" id="leaders">Leaders</button>
     </div>
     <div id="estimation_info">
         <div class="back_menu back_enabled">account value</div>

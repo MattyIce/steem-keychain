@@ -884,11 +884,11 @@ input:focus {
     background-image: url("../images/btn-bg_history.png");
 }
 
-#tokens {
+#tokens,#rewards {
     background-image: url("../images/btn-bg_tokens.png");
 }
 
-#witness {
+#witness,#leaders {
     background-image: url("../images/btn-bg_witness.png");
 }
 
