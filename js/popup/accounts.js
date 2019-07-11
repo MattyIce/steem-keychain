@@ -35,7 +35,6 @@ function loadDTubeAccount(name){
             $("#rc").text(numberWithCommas(rc)+" bytes");
             $(".wallet_infos").eq(0).text(numberWithCommas((account.balance/100).toFixed(2)));
             dtc=account.balance/100;
-            const lastBlock=await getLastBlock();
             javalon.getAccountHistory(account.name, -1, (err, blocks) => {
                 $("#acc_transfers div").eq(1).empty();
                 console.log(err, blocks);
@@ -64,6 +63,9 @@ function loadDTubeAccount(name){
                     transfers_element.append(memo_element);
                     $("#acc_transfers div").eq(1).append(transfers_element);
                 }
+                $(".transfer_row").click(function() {
+                    $(".memo").eq(($(this).index())).slideToggle();
+                });
             });
         }
     });
