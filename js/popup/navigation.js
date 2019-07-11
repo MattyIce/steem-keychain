@@ -47,6 +47,8 @@ function initializeVisibility() {
     $("#unlock").hide();
     $("#send_div").hide();
     $("#settings_div").hide();
+    $("#send_dtube_div").hide();
+    $("#confirm_send_dtube_div").hide();
     $("#add_account_div .back_enabled").removeClass("back_disabled");
     $(".wallet_currency").removeClass('dropdown-open');
     $(".dropdown").hide();
@@ -190,8 +192,13 @@ $("#keychainify").click(function() {
 
 // Show transaction window
 $("#send").click(function() {
-    $("#send_div").show();
-    if (active_account.keys.hasOwnProperty("memo")) {
+    if(!active_account.type)
+      $("#send_div").show();
+    else if(active_account.type==="dTube"){
+      $("#send_dtube_div").show();
+      $("#send_dtube_div .transfer_balance div").eq(1).html(numberWithCommas(dtc));
+    }
+    if (!active_account.type&&active_account.keys.hasOwnProperty("memo")) {
         $(".checkbox_memo").show();
     }
     $("#main").hide();
@@ -308,6 +315,12 @@ $("#powerdown").click(function() {
     $("#main").hide();
     $(".wallet_currency").removeClass('dropdown-open');
     $(".dropdown").hide();
+});
+
+$("#send_dtc").click(function() {
+    $("#send_dtube_div").show();
+    $("#main").hide();
+    $("#send_dtube_div .transfer_balance div").eq(1).html(numberWithCommas(dtc));
 });
 
 $("#send_steem").click(function() {

@@ -436,6 +436,41 @@
             <div><img src="../images/loading.gif" /></div>
         </div>
     </div>
+    <div id="send_dtube_div">
+        <div class="back_menu back_enabled">Transfer Funds</div>
+        <div class="transfer_balance">
+            <div>DTC Balance</div>
+            <div></div>
+        </div>
+        <div id="send_dtube_form">
+            <div class="input_container">
+                <input id="recipient" autocomplete="off" placeholder="USERNAME" />
+                <img src="../images/arobase.png" class="input_img" />
+            </div>
+            <div id="autocomplete_dtube_container"></div>
+            <input type="number" id="amt_send_dtube" autocomplete="off" placeholder="0.000" />
+            <div class="sp_del">
+                DTC
+            </div>
+            <button id="send_transfer_dtube">Send</button>
+        </div>
+    </div>
+    <div id="confirm_send_dtube_div">
+        <div class="back_enabled">Transfer</div>
+        <p>Please confirm your transfer.<br>This cannot be undone.</p>
+        <h3>From</h3>
+        <div id="from_conf_transfer_dtube"></div>
+        <h3>To</h3>
+        <div id="to_conf_transfer_dtube"></div>
+        <h3>Amount</h3>
+        <div id="amt_conf_transfer_dtube"></div>
+        <h3>Memo</h3>
+        <div id="memo_conf_transfer_dtube"></div>
+        <button id="confirm_send_transfer_dtube">Confirm</button>
+        <div class="loader" id="send_loader_dtube" style="display:none">
+            <div><img src="../images/loading.gif" /></div>
+        </div>
+    </div>
     <div id="claim_rewards">
         <img src="../images/delete.png" class="close_claim" id="close_claim" />
         <img src="../images/rewards.png" id="gift" />

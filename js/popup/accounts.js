@@ -34,6 +34,7 @@ function loadDTubeAccount(name){
             $("#vm").text(numberWithCommas(vm) + " VP");
             $("#rc").text(numberWithCommas(rc)+" bytes");
             $(".wallet_infos").eq(0).text(numberWithCommas(account.balance));
+            dtc=account.balance;
         }
     });
 }

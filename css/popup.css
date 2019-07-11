@@ -72,7 +72,9 @@ body {
 #incoming_del_div,
 #edit_del_div,
 #token_history_div,
-#confirm_send_div {
+#confirm_send_div,
+#send_dtube_div,
+#confirm_send_dtube_div {
     width: 350px;
     height: 100%;
     box-sizing: border-box;
@@ -148,7 +150,7 @@ input:focus {
     height: 29.99px;
 }
 
-#send_div .input_container img {
+#send_div .input_container img, #send_dtube_div .input_container img {
     position: absolute;
     top: 9px;
     left: 20px;
@@ -170,7 +172,9 @@ input:focus {
 #powerup_div input,
 #token_send_div input,
 #powerdown_div input,
-#add_dtube_account_div input {
+#add_dtube_account_div input,
+#send_dtube_div input,
+#confirm_send_dtube_div input  {
     width: 100%;
     box-sizing: border-box;
     height: 48.43px;
@@ -185,10 +189,6 @@ input:focus {
 
 #recipient {
   margin-bottom: 0px !important;
-}
-
-#amt_send {
-  margin-top: 20px;
 }
 
 
@@ -235,7 +235,9 @@ input:focus {
 #powerup_div button,
 #powerdown_div button,
 #confirm_send_div button,
-#add_dtube_account_div button {
+#add_dtube_account_div button,
+#send_dtube_div button,
+#confirm_send_dtube_div button {
     border-radius: 5px;
     width: 100%;
     height: 48.43px;
@@ -271,7 +273,9 @@ input:focus {
 #vote_wit:hover,
 #token_send_div button:hover,
 #confirm_send_div button:hover,
-#add_dtube_account_div button:hover {
+#add_dtube_account_div button:hover,
+#send_dtube_div button:hover,
+#confirm_send_dtube_div button:hover  {
     background-color: #917FC6;
     border: solid 1px #917FC6;
 }
@@ -376,7 +380,9 @@ input:focus {
 #edit_del_div,
 #token_history_div,
 #confirm_send_div,
-#add_dtube_account_div {
+#add_dtube_account_div,
+#send_dtube_div,
+#confirm_send_dtube_div  {
     display: none;
 }
 
@@ -892,7 +898,7 @@ input:focus {
     background-image: url("../images/btn-bg_witness.png");
 }
 
-#send_div input {
+#send_div input, #send_dtube_div input {
     padding-left: 10px;
 }
 
@@ -924,10 +930,11 @@ input:focus {
 }
 
 
-#amt_send {
+#amt_send, #amt_send_dtube {
     width: 167px !important;
     margin-right: 7px;
     text-align: right;
+    margin-top: 20px;
 }
 
 #send_transfer {
@@ -2003,7 +2010,7 @@ input:focus {
   margin-bottom: 30px;
 }
 
-#autocomplete_container {
+#autocomplete_container, #autocomplete_dtube_container {
   padding-top: -20px;
   position: relative;
 }
