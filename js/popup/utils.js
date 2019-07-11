@@ -1,6 +1,23 @@
 const STEEMIT_100_PERCENT = 10000;
 const STEEM_VOTING_MANA_REGENERATION_SECONDS = 432000;
 
+const dTubeTransferRawAsync=function(key,from,to,amount,memo){
+  return new Promise(function(resolve,reject){
+    let newTx = {
+      type: javalon.TransactionType.TRANSFER,
+      data: {
+          receiver: to,
+          amount: amount,
+          memo: memo
+      }
+    }
+    newTx = javalon.sign(key, from, newTx);
+    javalon.sendRawTransaction(newTx, function(err, res) {
+        resolve(res);
+    })
+  });
+}
+
 // get VM only
 var getVotingMana = function(account) {
     return new Promise(function(fulfill, reject) {

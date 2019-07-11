@@ -196,7 +196,7 @@ $("#send").click(function() {
       $("#send_div").show();
     else if(active_account.type==="dTube"){
       $("#send_dtube_div").show();
-      $("#send_dtube_div .transfer_balance div").eq(1).html(numberWithCommas(dtc));
+      $("#send_dtube_div .transfer_balance div").eq(1).html(numberWithCommas(dtc.toFixed(2)));
     }
     if (!active_account.type&&active_account.keys.hasOwnProperty("memo")) {
         $(".checkbox_memo").show();
@@ -320,7 +320,7 @@ $("#powerdown").click(function() {
 $("#send_dtc").click(function() {
     $("#send_dtube_div").show();
     $("#main").hide();
-    $("#send_dtube_div .transfer_balance div").eq(1).html(numberWithCommas(dtc));
+    $("#send_dtube_div .transfer_balance div").eq(1).html(numberWithCommas(dtc.toFixed(2)));
 });
 
 $("#send_steem").click(function() {

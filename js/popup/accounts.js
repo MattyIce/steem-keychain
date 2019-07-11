@@ -21,10 +21,10 @@ function loadDTubeAccount(name){
         return obj.name === name&&obj.type=="dTube";
     });
     active_account = account;
-    $( "#recipient" ).autocomplete({
-      source: to_autocomplete[active_account.name],
+    $( "#recipient_dtube" ).autocomplete({
+      source: to_autocomplete[active_account.name+"_dtube"],
       minLength: 2,
-      appendTo:"#autocomplete_container"
+      appendTo:"#autocomplete_dtube_container"
     });
     javalon.getAccount(account.name, async function(err, account) {
         if (account.length != 0) {
@@ -33,8 +33,38 @@ function loadDTubeAccount(name){
             const rc=javalon.bandwidth(account);
             $("#vm").text(numberWithCommas(vm) + " VP");
             $("#rc").text(numberWithCommas(rc)+" bytes");
-            $(".wallet_infos").eq(0).text(numberWithCommas(account.balance));
-            dtc=account.balance;
+            $(".wallet_infos").eq(0).text(numberWithCommas((account.balance/100).toFixed(2)));
+            dtc=account.balance/100;
+            const lastBlock=await getLastBlock();
+            javalon.getAccountHistory(account.name, -1, (err, blocks) => {
+                $("#acc_transfers div").eq(1).empty();
+                console.log(err, blocks);
+                const history=blocks
+                .map(elt=>elt.txs)
+                .reduce((a,b)=>a.concat(b))
+                .filter(elt=>elt.type===3)
+                .map(elt=>({
+                  from:elt.sender,
+                  to:elt.data.receiver,
+                  amount:elt.data.amount,
+                  memo:elt.data.memo,
+                  timestamp:elt.ts
+                }));
+                console.log(history);
+                for (transfer of history) {
+                    let memo = transfer.memo;
+                    let timestamp = transfer.timestamp;
+                    let date = new Date(timestamp);
+                    timestamp = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+                    var transfers_element = $("<div class='transfer_row'><span class='transfer_date' title='"+transfer.timestamp+"'>" + timestamp + "</span><span class='transfer_val'>" + (transfer.from == active_account.name ? "-" : "+") + " " + numberWithCommas((transfer.amount/100).toFixed(2)) + "</span><span class='transfer_name'>" + (transfer.from == active_account.name ? "TO: @" + transfer.to : "FROM: @" + transfer.from) +
+                    "</span><span class='transfer_cur'>DTC</span></div>");
+
+                    var memo_element = $("<div class='memo'></div>");
+                    memo_element.text(memo);
+                    transfers_element.append(memo_element);
+                    $("#acc_transfers div").eq(1).append(transfers_element);
+                }
+            });
         }
     });
 }

@@ -187,8 +187,9 @@ input:focus {
     font-size: 20px;
 }
 
-#recipient {
+#recipient, #recipient_dtube {
   margin-bottom: 0px !important;
+  padding-left: 65px !important;
 }
 
 
@@ -900,10 +901,6 @@ input:focus {
 
 #send_div input, #send_dtube_div input {
     padding-left: 10px;
-}
-
-#recipient {
-    padding-left: 65px !important;
 }
 
 .transfer_balance {

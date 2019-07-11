@@ -219,11 +219,81 @@ function confirmTransfer(){
   $("#memo_conf_transfer").text((memo==""?"Empty":memo)+((memo!=""&&$("#encrypt_memo").prop("checked"))?" (encrypted)":""));
 }
 
+// Show Confirmation window before transfer DTC
+$("#send_transfer_dtube").click(function() {
+    confirmDTubeTransfer();
+});
+
+function confirmDTubeTransfer(){
+  $("#confirm_send_dtube_div").show();
+  $("#send_dtube_div").hide();
+  const to = $("#recipient_dtube").val();
+  const amount = $("#amt_send_dtube").val();
+  const memo = $("#memo_send_dtube").val();
+  $("#from_conf_transfer_dtube").text("@"+active_account.name)
+  $("#to_conf_transfer_dtube").text("@"+to);
+  $("#amt_conf_transfer_dtube").text(amount+" DTC");
+  $("#memo_conf_transfer_dtube").text(memo==""?"Empty":memo);
+}
+
 // Send STEEM or SBD to an user
 $("#confirm_send_transfer").click(function() {
     showLoader();
     sendTransfer();
 });
+
+// Send STEEM or SBD to an user
+$("#confirm_send_transfer_dtube").click(function() {
+    showLoader();
+    sendTransferDTube();
+});
+
+// Send a transfer
+async function sendTransferDTube() {
+  const to = $("#recipient_dtube").val();
+  const amount = $("#amt_send_dtube").val();
+  let memo = $("#memo_send_dtube").val();
+  if (to != "" && amount != "" && amount >= 0.01) {
+      const transfer=await dTubeTransferRawAsync(active_account.keys.private, active_account.name, to, parseInt(amount*100), memo);
+          $("#send_loader").hide();
+          $("#confirm_send_transfer").show();
+          if (transfer) {
+              javalon.getAccount(active_account.name,function(err,sender){
+                dtc = sender.balance/100;
+                $("#confirm_send_dtube_div").hide();
+                $("#send_dtube_div").show();
+                $(".error_div").hide();
+                $(".success_div").html("Transfer successful!").show();
+                chrome.storage.local.get({'transfer_to':JSON.stringify({})}, function(items) {
+                  let transfer_to=JSON.parse(items.transfer_to);
+                  const name=active_account.name+"_dtube";
+                  if(!transfer_to[name])transfer_to[name]=[];
+                  console.log(transfer_to);
+                  if(transfer_to[name].filter((elt)=>{return elt==to}).length==0)
+                    transfer_to[name].push(to);
+                    console.log(transfer_to);
+
+                  console.log(JSON.stringify(transfer_to));
+                  chrome.storage.local.set({
+                      transfer_to: JSON.stringify(transfer_to)
+                  });
+                });
+                setTimeout(function() {
+                    $(".success_div").hide();
+                }, 5000);
+              });
+          } else {
+              $(".success_div").hide();
+              showError("Something went wrong! Please try again!");
+          }
+          $("#send_transfer").show();
+  } else {
+      showError("Please fill the fields!");
+      $("#send_loader").hide();
+      $("#send_transfer").show();
+  }
+}
+
 
 // Vote for witnesses
 function voteFor(name) {
