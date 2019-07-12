@@ -254,7 +254,7 @@ async function sendTransferDTube() {
   const amount = $("#amt_send_dtube").val();
   let memo = $("#memo_send_dtube").val();
   if (to != "" && amount != "" && amount >= 0.01) {
-      const transfer=await dTubeTransferRawAsync(active_account.keys.private, active_account.name, to, parseInt(amount*100), memo);
+      const transfer=await dTubeTransferAsync(active_account.keys.private, active_account.name, to, parseInt(amount*100), memo);
           $("#send_loader").hide();
           $("#confirm_send_transfer").show();
           if (transfer) {

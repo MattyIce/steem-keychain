@@ -1,7 +1,7 @@
 const STEEMIT_100_PERCENT = 10000;
 const STEEM_VOTING_MANA_REGENERATION_SECONDS = 432000;
 
-const dTubeTransferRawAsync=function(key,from,to,amount,memo){
+const dTubeTransferAsync=function(key,from,to,amount,memo){
   return new Promise(function(resolve,reject){
     let newTx = {
       type: javalon.TransactionType.TRANSFER,
@@ -12,7 +12,7 @@ const dTubeTransferRawAsync=function(key,from,to,amount,memo){
       }
     }
     newTx = javalon.sign(key, from, newTx);
-    javalon.sendRawTransaction(newTx, function(err, res) {
+    javalon.sendTransaction(newTx, function(err, res) {
         resolve(res);
     })
   });
