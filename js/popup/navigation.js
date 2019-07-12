@@ -29,6 +29,7 @@ function initializeVisibility() {
     $("#transfer_to").hide();
     $("#add_key_div").hide();
     $("#estimation_info").hide();
+    $("#estimation_info_dtube").hide();
     $("#pref_div").hide();
     $("#tokens_div").hide();
     $("#rewards_div").hide();
@@ -176,7 +177,10 @@ $('#add_key').click(function() {
 // extra info on the estimated account value
 $("#account_value_header").click(function() {
     $('#main').hide();
-    $("#estimation_info").show();
+    if(!active_account.type)
+      $("#estimation_info").show();
+    else if(active_account.type==="dTube")
+      $("#estimation_info_dtube").show();
 });
 
 // Navigate to autolock menu

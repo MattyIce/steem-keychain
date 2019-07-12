@@ -58,6 +58,7 @@ body {
 .settings_child,
 #pref_div,
 #estimation_info,
+#estimation_info_dtube,
 #add_key_div,
 #change_password,
 #add_rpc_div,
@@ -367,6 +368,7 @@ input:focus {
 .settings_child,
 #pref_div,
 #estimation_info,
+#estimation_info_dtube,
 #change_password,
 #autolock_div,
 #add_rpc_div,
@@ -1138,7 +1140,7 @@ input:focus {
     background-color: #8e0000;
 }
 
-#estimation_info div:first-of-type {
+#estimation_info div:first-of-type,#estimation_info_dtube div:first-of-type {
     margin-bottom: 46px;
 }
 
