@@ -738,6 +738,10 @@ input:focus {
     cursor: pointer;
 }
 
+#wallet_dtc::after{
+  background-image: none !important;
+}
+
 .dropdown-open::after {
     background-image: url("../images/uparrow.png") !important;
 }

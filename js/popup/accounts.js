@@ -73,6 +73,12 @@ function loadDTubeAccount(name){
                 console.log(rew);
                 showRewards(rewards);
             });
+            javalon.getLeaders(function(err,lead){
+              if(!err)
+                leaders=lead;
+                console.log(leaders);
+                //showLeaders(leaders);
+            });
         }
     });
 }
