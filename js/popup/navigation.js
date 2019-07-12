@@ -31,6 +31,7 @@ function initializeVisibility() {
     $("#estimation_info").hide();
     $("#pref_div").hide();
     $("#tokens_div").hide();
+    $("#rewards_div").hide();
     $("#tokens_settings_div").hide();
     $("#delegation_div").hide();
     $("#add_rpc_div").hide();
@@ -212,6 +213,11 @@ $("#history").click(function() {
 
 $("#tokens").click(function() {
     $("#tokens_div").show();
+    $("#main").hide();
+});
+
+$("#rewards").click(function() {
+    $("#rewards_div").show();
     $("#main").hide();
 });
 

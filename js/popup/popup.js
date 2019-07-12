@@ -1,6 +1,6 @@
 let accounts_json = null,
     mk = null;
-let active_account, priceBTC, sbd, steem_p, sp,dtc, priceSBD, priceSteem, votePowerReserveRate, totalSteem, totalVests, rewardBalance, recentClaims, steemPrice, dynamicProp = null;
+let active_account, priceBTC,rewards, sbd, steem_p, sp,dtc, priceSBD, priceSteem, votePowerReserveRate, totalSteem, totalVests, rewardBalance, recentClaims, steemPrice, dynamicProp = null;
 const STEEMIT_VOTE_REGENERATION_SECONDS = (5 * 60 * 60 * 24);
 let custom_created = false;
 let manageKey, getPref = false;

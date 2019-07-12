@@ -16,17 +16,17 @@ function loadAccount(name) {
 function loadDTubeAccount(name){
     $(".dtube").show();
     $(".steem").hide();
-    $("#account_value_amt").text("Coming soon...");
-    let account = accounts_json.list.find(function(obj, i) {
+    $("#account_value_amt").text("$0.00");
+    let acc = accounts_json.list.find(function(obj, i) {
         return obj.name === name&&obj.type=="dTube";
     });
-    active_account = account;
+    active_account = acc;
     $( "#recipient_dtube" ).autocomplete({
       source: to_autocomplete[active_account.name+"_dtube"],
       minLength: 2,
       appendTo:"#autocomplete_dtube_container"
     });
-    javalon.getAccount(account.name, async function(err, account) {
+    javalon.getAccount(acc.name, async function(err, account) {
         if (account.length != 0) {
             console.log(account);
             const vm = javalon.votingPower(account);
@@ -66,6 +66,12 @@ function loadDTubeAccount(name){
                 $(".transfer_row").click(function() {
                     $(".memo").eq(($(this).index())).slideToggle();
                 });
+            });
+            javalon.getRewards(acc.name,function(err,rew){
+              if(!err)
+                rewards=rew;
+                console.log(rew);
+                showRewards(rewards);
             });
         }
     });
