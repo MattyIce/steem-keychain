@@ -238,6 +238,12 @@ $("#witness").click(function() {
     $("#voted").addClass("active_wit");
 });
 
+$("#leaders").click(function() {
+    $("#main").hide();
+    $("#witness_div").show();
+    $("#voted").addClass("active_wit");
+});
+
 $(".wit-menu").click(function() {
     $("#witness_div button").removeClass("active_wit");
     $(this).addClass("active_wit");

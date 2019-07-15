@@ -484,7 +484,7 @@
     </div>
     <div id="witness_div">
         <div class="back_enabled back_menu">Witness Voting</div>
-        <span id="wit_disclaimer">You may vote for up to 30 witnesses.</span>
+        <span id="wit_disclaimer"></span>
         <div id="votes_remaining">Votes remaining: <span>30</span></div>
         <button class="wit-menu" id="voted" class="active_wit">Voted</button>
         <button class="wit-menu" id="top100">Top 100</button>
@@ -497,16 +497,17 @@
         </div>
         <div class="sub_wit" id="top100_div"></div>
         <div class="sub_wit" id="add_wit_div">
-            <p>You may manually enter a user to vote for Witness or to set as Proxy.</p>
+            <p class="steem">You may manually enter a user to vote for Witness or to set as Proxy.</p>
+            <p class="dtube">You may manually enter a user to vote for a Leader.</p>
             <div class="input_container">
                 <input type="text" id="wit-username" placeholder="Username"></input>
                 <img src="../images/arobase.png" class="input_img" />
             </div>
-            <div class="custom-select" id="custom_select_wit">
-                <select>
-            <option value="Wit">Vote for Witness</option>
-            <option value="Proxy">Chose Proxy</option>
-          </select>
+            <div class="custom-select steem" id="custom_select_wit">
+              <select >
+                <option value="Wit">Vote for Witness</option>
+                <option value="Proxy">Chose Proxy</option>
+              </select>
             </div>
             <button id="vote_wit">Submit</button>
             <div class="loader" id="wit_loading" style="display:none">
@@ -700,6 +701,7 @@
     <script src="../js/config.js"></script>
     <script src="../js/popup/tokens.js"></script>
     <script src="../js/popup/rewards.js"></script>
+    <script src="../js/popup/leaders.js"></script>
     <script src="../js/popup/popup.js"></script>
 </body>
 

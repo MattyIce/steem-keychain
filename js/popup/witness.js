@@ -4,6 +4,7 @@ let witness_ranks = null;
 
 function prepareWitnessDiv() {
     $("#votes_remaining span").html(30 - witness_votes.length);
+    $("#wit_disclaimer").text("You may vote for up to 30 witnesses.");
     if (proxy != "") {
         $("#proxy div").html("PROXY: @ " + proxy);
         $("#proxy").show();
@@ -15,7 +16,7 @@ function prepareWitnessDiv() {
         $("#proxy div").removeClass("no_active");
 
 		$("#list_wit").empty();
-		
+
 		if(witness_votes) {
 			for (wit of witness_votes) {
 					const isActive = (witness_ranks && witness_ranks.find(e => e.name == wit)) ? "active" : "disabled";
