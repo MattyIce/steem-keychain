@@ -235,7 +235,7 @@ $("#check_add_account").click(function() {
     const pwd = $("#pwd").val();
     if (username !== "" && pwd !== "") {
         if (accounts_json && accounts_json.list.find(function(element) {
-                return element.name == username
+                return element.name == username && !element.type
             })) {
             showError("You already registered an account for @" + username + "!");
         } else
