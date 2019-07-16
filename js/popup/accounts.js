@@ -367,12 +367,24 @@ function addAccount(account) {
 // Display Add Copy or delete individual keys
 function manageKeys(name) {
     let index = -1;
-    let account = accounts_json.list.filter(function(obj, i) {
-        if (obj.name === name) {
+    console.log(name);
+    let account = accounts_json.list.find(function(obj, i) {
+        if (obj.name === name.split(" ")[0]&&
+      (name.split(" ")[1]==="(DTC)"?obj.type=="dTube":!obj.type)) {
             index = i;
             return obj;
         }
-    })[0];
+    });
+    if(account.type==="dTube"){
+      $(".dtube").show();
+      $(".steem").hide();
+    }
+    else{
+        $(".steem").show();
+        $(".dtube").hide();
+    }
+
+    console.log("acc",account);
     const keys = account.keys;
     $(".public_key").html("");
     $(".private_key").html("");
@@ -398,6 +410,12 @@ function manageKeys(name) {
                 $(".public_key").eq(2).html(account.keys[keyName]);
             else
                 $(".private_key").eq(2).html(REVEAL_PRIVATE).css("font-size","12px");
+        }
+        else {
+          if (keyName==="public")
+              $(".public_key").eq(3).text(account.keys[keyName]);
+          else
+              $(".private_key").eq(3).text(REVEAL_PRIVATE).css("font-size","12px");
         }
     }
     if ($(".private_key").eq(0).html() === "") {
@@ -430,7 +448,7 @@ function manageKeys(name) {
         if (timeout != null)
             clearTimeout(timeout);
         if($(this).html()==REVEAL_PRIVATE){
-          const type=$(this).prev().attr("id");
+          const type=$(this).prev().attr("id")||"private";
           const key=account.keys[type];
           console.log(type,key);
           $(this).html(key).css("font-size","10px");

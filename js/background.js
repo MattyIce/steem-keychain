@@ -770,7 +770,7 @@ function checkBeforeCreate(request, tab, domain) {
                     const enforce = request.enforce || encode;
                     if (encode)
                         account = accounts.list.find(function(e) {
-                            return e.name == request.username;
+                            return e.name == request.username&&e.type==request.typeAccount;
                         });
                     // If a username is specified, check that its active key has been added to the wallet
                     if (enforce && request.username && !tr_accounts.find(a => a.name == request.username)) {
@@ -803,7 +803,7 @@ function checkBeforeCreate(request, tab, domain) {
                         createPopup(callback);
                     }
                 } else {
-                    if (!accounts.list.find(e => e.name == request.username)) {
+                    if (!accounts.list.find(e => e.name == request.username&&e.type==request.typeAccount)) {
                         function callback() {
 
                               console.log("error4");
@@ -812,7 +812,7 @@ function checkBeforeCreate(request, tab, domain) {
                         createPopup(callback);
                     } else {
                         account = accounts.list.find(function(e) {
-                            return e.name == request.username;
+                            return e.name == request.username&&e.type==request.typeAccount;
                         });
                         let typeWif = getRequiredWifType(request);
                         let req = request;
