@@ -126,3 +126,68 @@ $("#send_create_claimed").click(function() {
         console.log(response);
     });
 });
+
+//DTube
+// Create new account
+
+$("#d_send_create").click(function() {
+  console.log("create DTube account");
+    steem_keychain.requestDTubeNewAccount($("#d_username_create").val(), $("#d_key_create").val(), function(response) {
+        console.log('main js response - DTube account');
+        console.log(response);
+    });
+});
+
+// Vote for leaders
+$("#d_send_leader").click(function() {
+  console.log("vote for leaders");
+    steem_keychain.requestDTubeLeaderVote($("#d_username_leader").val(), $("#d_leader").val(),$("#d_leader_approve").is(":checked") , function(response) {
+        console.log('main js response - DTube leader');
+        console.log(response);
+    });
+});
+
+// Transfer
+$("#d_send_transfer").click(function() {
+  console.log("DTube transfer");
+    steem_keychain.requestDTubeTransfer($("#d_username_transfer").val(), $("#d_recipient_transfer").val(), $("#d_amt_transfer").val(), $("#d_memo_transfer").val(), function(response) {
+        console.log('main js response - DTube transfer');
+        console.log(response);
+    });
+});
+
+//Comment
+$("#d_send_comment").click(function() {
+  console.log("DTube comment");
+    steem_keychain.requestDTubeComment($("#d_username_comment").val(), $("#d_pa_comment").val(), $("#d_pp_comment").val(), $("#d_perm_comment").val(), $("#d_json_comment").val(),$("#d_tag_comment").val(),$("#d_vote_comment").val(),$("#d_burn_comment").val(), function(response) {
+        console.log('main js response - DTube Comment');
+        console.log(response);
+    });
+});
+
+//Vote
+$("#d_send_vote").click(function() {
+  console.log("Vote DTube");
+    steem_keychain.requestDTubeVote($("#d_username_vote").val(), $("#d_author_vote").val(), $("#d_perm_vote").val(), $("#d_tag_vote").val(), $("#d_weight_vote").val(), function(response) {
+        console.log('main js response - DTube vote');
+        console.log(response);
+    });
+});
+
+//Follow
+$("#d_send_follow").click(function() {
+  console.log("DTube follow");
+    steem_keychain.requestDTubeFollow($("#d_username_follow").val(), $("#d_dtuber_follow").val(),$("#d_follow").is(":checked"), function(response) {
+        console.log('main js response - DTube follow');
+        console.log(response);
+    });
+});
+
+//JSON
+$("#d_send_json").click(function() {
+  console.log("DTube Json");
+    steem_keychain.requestDTubeJson($("#d_username_json").val(), $("#d_json").val(), function(response) {
+        console.log('main js response - DTube Json');
+        console.log(response);
+    });
+});

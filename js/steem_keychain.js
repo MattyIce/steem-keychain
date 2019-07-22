@@ -218,28 +218,28 @@ var steem_keychain = {
       };
       this.dispatchCustomEvent("swRequest", request, callback);
     },
-    requestDTubeComment: function(username,pa,pp, permlink,title,body,app,burn,callback) {
+    requestDTubeComment: function(username,pa,pp, permlink,json,tag,vote,burn,callback) {
       const request = {
         type: "dTubeComment",
         username,
-        permlink,
-        title,
-        body,
-        vote,
-        metadata,
         pa,
         pp,
-        app,
+        permlink,
+        json,
+        tag,
+        vote,
         burn
       };
       this.dispatchCustomEvent("swRequest", request, callback);
     },
-    requestDTubeVote: function(username, permlink,weight,vote,callback) {
+    requestDTubeVote: function(username, author,permlink,tag,weight,callback) {
       const request = {
         type: "dTubeVote",
         username,
         permlink,
-        weight
+        weight,
+        author,
+        tag
       };
       this.dispatchCustomEvent("swRequest", request, callback);
     },
@@ -254,17 +254,9 @@ var steem_keychain = {
     requestDTubeFollow: function(username, dtuber,follow,callback) {
       const request = {
         type: "dTubeFollow",
+        username,
         dtuber,
         follow
-      };
-      this.dispatchCustomEvent("swRequest", request, callback);
-    },
-    requestDTubeVote: function(username, permlink,weight,vote,callback) {
-      const request = {
-        type: "dTubeVote",
-        username,
-        permlink,
-        weight
       };
       this.dispatchCustomEvent("swRequest", request, callback);
     },
