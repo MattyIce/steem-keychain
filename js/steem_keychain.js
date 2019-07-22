@@ -178,8 +178,6 @@ var steem_keychain = {
         };
         this.dispatchCustomEvent("swRequest", request, callback);
     },
-
-
     requestCreateClaimedAccount: function(username, new_account, owner, active, posting, memo,callback) {
       const request = {
         type: "createClaimedAccount",
@@ -193,6 +191,84 @@ var steem_keychain = {
 
       this.dispatchCustomEvent("swRequest", request, callback);
     },
+    requestDTubeNewAccount: function(username, publicKey,callback) {
+      const request = {
+        type: "dTubeNewAccount",
+        username,
+        publicKey
+      };
+      this.dispatchCustomEvent("swRequest", request, callback);
+    },
+    requestDTubeLeaderVote: function(username, leader,approve,callback) {
+      const request = {
+        type: "dTubeLeader",
+        username,
+        leader,
+        approve
+      };
+      this.dispatchCustomEvent("swRequest", request, callback);
+    },
+    requestDTubeTransfer: function(username, recipient,amount,memo,callback) {
+      const request = {
+        type: "dTubeTransfer",
+        username,
+        recipient,
+        amount,
+        memo
+      };
+      this.dispatchCustomEvent("swRequest", request, callback);
+    },
+    requestDTubeComment: function(username,pa,pp, permlink,title,body,app,burn,callback) {
+      const request = {
+        type: "dTubeComment",
+        username,
+        permlink,
+        title,
+        body,
+        vote,
+        metadata,
+        pa,
+        pp,
+        app,
+        burn
+      };
+      this.dispatchCustomEvent("swRequest", request, callback);
+    },
+    requestDTubeVote: function(username, permlink,weight,vote,callback) {
+      const request = {
+        type: "dTubeVote",
+        username,
+        permlink,
+        weight
+      };
+      this.dispatchCustomEvent("swRequest", request, callback);
+    },
+    requestDTubeJson: function(username, json,callback) {
+      const request = {
+        type: "dTubeJson",
+        username,
+        json
+      };
+      this.dispatchCustomEvent("swRequest", request, callback);
+    },
+    requestDTubeFollow: function(username, dtuber,follow,callback) {
+      const request = {
+        type: "dTubeFollow",
+        dtuber,
+        follow
+      };
+      this.dispatchCustomEvent("swRequest", request, callback);
+    },
+    requestDTubeVote: function(username, permlink,weight,vote,callback) {
+      const request = {
+        type: "dTubeVote",
+        username,
+        permlink,
+        weight
+      };
+      this.dispatchCustomEvent("swRequest", request, callback);
+    },
+
     // Send the customEvent
     dispatchCustomEvent: function(name, data, callback) {
         this.requests[this.current_id] = callback;
