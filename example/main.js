@@ -159,7 +159,7 @@ $("#d_send_transfer").click(function() {
 //Comment
 $("#d_send_comment").click(function() {
   console.log("DTube comment");
-    steem_keychain.requestDTubeComment($("#d_username_comment").val(), $("#d_pa_comment").val(), $("#d_pp_comment").val(), $("#d_perm_comment").val(), $("#d_json_comment").val(),$("#d_tag_comment").val(),$("#d_vote_comment").val(),$("#d_burn_comment").val(), function(response) {
+    steem_keychain.requestDTubeComment($("#d_username_comment").val(), $("#d_pa_comment").val(), $("#d_pp_comment").val(), $("#d_perm_comment").val(), JSON.parse($("#d_json_comment").val()),$("#d_tag_comment").val(),$("#d_vote_comment").val(),$("#d_burn_comment").val(), function(response) {
         console.log('main js response - DTube Comment');
         console.log(response);
     });
@@ -186,7 +186,7 @@ $("#d_send_follow").click(function() {
 //JSON
 $("#d_send_json").click(function() {
   console.log("DTube Json");
-    steem_keychain.requestDTubeJson($("#d_username_json").val(), $("#d_json").val(), function(response) {
+    steem_keychain.requestDTubeJson($("#d_username_json").val(), JSON.parse($("#d_json").val()), function(response) {
         console.log('main js response - DTube Json');
         console.log(response);
     });

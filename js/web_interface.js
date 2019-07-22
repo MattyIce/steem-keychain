@@ -96,7 +96,14 @@ function validate() {
             (req.type == "sendToken" && isFilledAmt(req.amount) && isFilled(req.to) && isFilled(req.currency))||
             (req.type == "powerUp" && isFilled(req.username)&& isFilledAmt(req.steem) && isFilled(req.recipient))||
             (req.type == "powerDown" && isFilled(req.username)&& (isFilledAmt(req.steem_power)||req.steem_power=="0.000"))||
-            (req.type == "createClaimedAccount" && isFilled(req.username)&& isFilled(req.new_account)&& isFilled(req.owner)&& isFilled(req.active)&& isFilled(req.posting)&& isFilled(req.memo))
+            (req.type == "createClaimedAccount" && isFilled(req.username)&& isFilled(req.new_account)&& isFilled(req.owner)&& isFilled(req.active)&& isFilled(req.posting)&& isFilled(req.memo))||
+            (req.type == "dTubeNewAccount" && isFilled(req.username) && isFilled(req.publicKey)) ||
+            (req.type == "dTubeLeader" && isFilled(req.username) && isFilled(req.leader) && isBoolean(req.approve)) ||
+            (req.type == "dTubeTransfer" && isFilled(req.username) && isFilled(req.recipient) && isFilledAmtDTube(req.amount)) ||
+            (req.type == "dTubeComment" && isFilled(req.username) && isFilled(req.permlink) && isFilled(req.pa) && isFilled(req.pp) && isFilled(req.json) && isFilled(req.tag) && isFilledAmtDTube(req.burn) && isFilledAmtDTube(req.vote)) ||
+            (req.type == "dTubeVote" && isFilled(req.username) && isFilled(req.permlink)&& isFilled(req.author)&& isFilled(req.tag)&& isFilledAmtDTube(req.weight) ) ||
+            (req.type == "dTubeFollow" && isFilled(req.username) && isFilled(req.dtuber) && isBoolean(req.follow))||
+            (req.type == "dTubeJson" && isFilled(req.username)&& isFilled(req.json))
         );
 }
 
@@ -137,6 +144,10 @@ function isFilledJSON(obj) {
 
 function isFilledAmt(obj) {
     return isFilled(obj) && !isNaN(obj) && obj > 0 && countDecimals(obj) == 3;
+}
+
+function isFilledAmtDTube(obj) {
+    return isFilled(obj) && !isNaN(obj)  && parseInt(obj)==obj;
 }
 
 function isFilledAmtSP(obj) {
