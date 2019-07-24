@@ -73,7 +73,14 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResp) {
             "sendToken":"Send Tokens",
             "powerUp":"Power Up",
             "powerDown":"Power Down",
-            "createClaimedAccount":"Create Claimed Account"
+            "createClaimedAccount":"Create Claimed Account",
+            "dTubeNewAccount":"Create DTube Account",
+            "dTubeLeader":"Vote for Leader",
+            "dTubeVote":"Vote on DTube",
+            "dTubeComment":"Comment on DTube",
+            "dTubeTransfer":"DTube Transfer",
+            "dTubeJson":"DTube JSON",
+            "dTubeFollow":"Follow on DTube"
         };
         var title = titles[type];
         $("#dialog_header").html(title);

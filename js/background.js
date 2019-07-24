@@ -770,7 +770,7 @@ function checkBeforeCreate(request, tab, domain) {
                     const enforce = request.enforce || encode;
                     if (encode)
                         account = accounts.list.find(function(e) {
-                            return e.name == request.username&&e.type==request.typeAccount;
+                            return e.name == request.username&&e.type==(request.type.includes("dTube")?"dTube":undefined);
                         });
                     // If a username is specified, check that its active key has been added to the wallet
                     if (enforce && request.username && !tr_accounts.find(a => a.name == request.username)) {
@@ -803,7 +803,7 @@ function checkBeforeCreate(request, tab, domain) {
                         createPopup(callback);
                     }
                 } else {
-                    if (!accounts.list.find(e => e.name == request.username&&e.type==request.typeAccount)) {
+                    if (!accounts.list.find(e => e.name == request.username&&e.type==(request.type.includes("dTube")?"dTube":undefined))) {
                         function callback() {
 
                               console.log("error4");
@@ -812,12 +812,12 @@ function checkBeforeCreate(request, tab, domain) {
                         createPopup(callback);
                     } else {
                         account = accounts.list.find(function(e) {
-                            return e.name == request.username&&e.type==request.typeAccount;
+                            return e.name == request.username&&e.type==(request.type.includes("dTube")?"dTube":undefined);
                         });
                         let typeWif = getRequiredWifType(request);
                         let req = request;
                         req.key=typeWif;
-
+                        console.log(account,typeWif);
                         if (req.type == "custom")
                             req.method = typeWif;
 
@@ -832,6 +832,7 @@ function checkBeforeCreate(request, tab, domain) {
                             });
                         } else {
                             key = account.keys[typeWif];
+                            console.log(typeWif,key);
                             if (!hasNoConfirm(items.no_confirm, req, domain)) {
                                 function callback() {
                                     chrome.runtime.sendMessage({
@@ -891,6 +892,10 @@ function sendErrors(tab, error, message, display_msg, request) {
 
 // Get the key needed for each type of transaction
 function getRequiredWifType(request) {
+  console.log(request,"a");
+  if(request.type.includes("dTube"))
+    return "private";
+  else
     switch (request.type) {
         case "decode":
         case "signBuffer":
