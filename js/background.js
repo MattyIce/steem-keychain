@@ -676,6 +676,50 @@ async function performTransaction(data, tab,no_confirm) {
                     accounts = null;
                 }
                 break;
+              case "dTubeLeader":
+                try {
+                    let voteLeader = await dTubeVoteLeaderAsync(key,data.username, data.leader,data.approve);
+                    let message = {
+                        command: "answerRequest",
+                        msg: {
+                            success: true,
+                            error: null,
+                            result: voteLeader,
+                            data: data,
+                            message: "@"+data.leader+" "+(data.approve?"":"un")+"voted succesfully!",
+                            request_id: request_id
+                        }
+                    };
+
+                    chrome.tabs.sendMessage(tab, message);
+                    if(no_confirm){
+                      if (id_win != null)
+                          removeWindow(id_win);
+                    }
+                    else {
+                      chrome.runtime.sendMessage(message);
+                    }
+                    key = null;
+                    accounts = null;
+                } catch (err) {
+                  console.log(err);
+                    let message = {
+                        command: "answerRequest",
+                        msg: {
+                            success: false,
+                            error: 'leader_error',
+                            result: null,
+                            data: data,
+                            message: "Could not "+(data.approve?"":"un")+"vote @"+data.leader,
+                            request_id: request_id
+                        }
+                    };
+                    chrome.tabs.sendMessage(tab, message);
+                    chrome.runtime.sendMessage(message);
+                    key = null;
+                    accounts = null;
+                }
+                break;
         }
     } catch (e) {
         console.log(e);

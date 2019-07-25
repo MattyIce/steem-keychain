@@ -249,8 +249,8 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResp) {
                 break;
             case "witnessVote":
                 console.log(msg.data);
-                $("#witness").html(msg.data.witness);
-                $("#voteWit").html(JSON.stringify(msg.data.vote));
+                $("#witness").text(msg.data.witness);
+                $("#voteWit").text(JSON.stringify(msg.data.vote));
                 break;
             case "sendToken":
                 $("#to").text('@' + msg.data.to);
@@ -265,6 +265,10 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResp) {
               break;
             case "powerDown":
               $("#amount").text(msg.data.steem_power + " SP");
+              break;
+            case "dTubeLeader":
+              $("#witness").text(msg.data.leader);
+              $("#voteWit").text(msg.data.approve?"True":"False");
               break;
         }
 

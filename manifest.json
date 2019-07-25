@@ -14,6 +14,8 @@
       "js/encrypt.js",
       "vendor/steem.min.js",
       "vendor/decode.min.js",
+      "vendor/javalon.min.js",
+      "js/dtube_wrapper.js",
       "js/config.js",
       "js/keychainify.js",
       "js/background.js"

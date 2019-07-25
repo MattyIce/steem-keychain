@@ -37,6 +37,7 @@ document.addEventListener('swRequest', function(request) {
       sendResponse(response);
     }
     req = request.detail;
+    console.log(req);
     // If all information are filled, send the request to the background, if not notify an error
     if (validate()) {
         chrome.runtime.sendMessage({
