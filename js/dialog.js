@@ -270,6 +270,27 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResp) {
               $("#witness").text(msg.data.leader);
               $("#voteWit").text(msg.data.approve?"True":"False");
               break;
+            case "dTubeTransfer":
+              $("#to").text('@' + msg.data.recipient);
+              $("#amount").text(msg.data.amount/100 + " DTC");
+              $("#memo").text(msg.data.memo.length?msg.data.memo:"None");
+              break;
+          case "dTubeVote":
+              $("#weight").text(msg.data.weight / 100 + " %");
+              $("#author").text('@' + msg.data.author);
+              $("#perm").text(msg.data.permlink);
+              break;
+          case "dTubeFollow":
+              if(!msg.data.follow)
+                $("#dialog_header").html("Unfollow on DTube");
+              $("#dtuber").text("@"+msg.data.dtuber);
+              break;
+          case "dTubeJson":
+              $("#custom_data").click(function() {
+                  $("#custom_json").slideToggle();
+              });
+              $("#custom_json div").eq(0).text(JSON.stringify(msg.data.json));
+              break;
         }
 
         // Closes the window and launch the transaction in background

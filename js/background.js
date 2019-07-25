@@ -720,6 +720,183 @@ async function performTransaction(data, tab,no_confirm) {
                     accounts = null;
                 }
                 break;
+              case "dTubeTransfer":
+                try {
+                    let dTubeTransfer = await dTubeTransferAsync(key,data.username, data.recipient,parseInt(data.amount),data.memo);
+                    let message = {
+                        command: "answerRequest",
+                        msg: {
+                            success: true,
+                            error: null,
+                            result: dTubeTransfer,
+                            data: data,
+                            message: "Successfully sent "+parseInt(data.amount)/100+" DTC to @"+data.recipient,
+                            request_id: request_id
+                        }
+                    };
+
+                    chrome.tabs.sendMessage(tab, message);
+                    if(no_confirm){
+                      if (id_win != null)
+                          removeWindow(id_win);
+                    }
+                    else {
+                      chrome.runtime.sendMessage(message);
+                    }
+                    key = null;
+                    accounts = null;
+                } catch (err) {
+                  console.log(err);
+                    let message = {
+                        command: "answerRequest",
+                        msg: {
+                            success: false,
+                            error: 'transfer_error',
+                            result: null,
+                            data: data,
+                            message: "Error while sending "+parseInt(data.amount)/100+" DTC to @"+data.recipient,
+                            request_id: request_id
+                        }
+                    };
+                    chrome.tabs.sendMessage(tab, message);
+                    chrome.runtime.sendMessage(message);
+                    key = null;
+                    accounts = null;
+                }
+                break;
+            case "dTubeVote":
+              try {
+                  let dTubeVote = await dTubeVoteAsync(key,data.username, data.author,data.permlink,parseInt(data.weight),data.tag);
+                  let message = {
+                      command: "answerRequest",
+                      msg: {
+                          success: true,
+                          error: null,
+                          result: dTubeVote,
+                          data: data,
+                          message: "Successfully voted for "+data.permlink,
+                          request_id: request_id
+                      }
+                  };
+
+                  chrome.tabs.sendMessage(tab, message);
+                  if(no_confirm){
+                    if (id_win != null)
+                        removeWindow(id_win);
+                  }
+                  else {
+                    chrome.runtime.sendMessage(message);
+                  }
+                  key = null;
+                  accounts = null;
+              } catch (err) {
+                console.log(err);
+                  let message = {
+                      command: "answerRequest",
+                      msg: {
+                          success: false,
+                          error: 'vote_error',
+                          result: null,
+                          data: data,
+                          message: "Error while voting for "+data.permlink,
+                          request_id: request_id
+                      }
+                  };
+                  chrome.tabs.sendMessage(tab, message);
+                  chrome.runtime.sendMessage(message);
+                  key = null;
+                  accounts = null;
+              }
+              break;
+          case "dTubeFollow":
+            try {
+                let dTubeFollow = await dTubeFollowAsync(key,data.username, data.dtuber,data.follow);
+                let message = {
+                    command: "answerRequest",
+                    msg: {
+                        success: true,
+                        error: null,
+                        result: dTubeFollow,
+                        data: data,
+                        message: "Successfully "+(data.follow?"":"un")+"followed @"+data.dtuber,
+                        request_id: request_id
+                    }
+                };
+
+                chrome.tabs.sendMessage(tab, message);
+                if(no_confirm){
+                  if (id_win != null)
+                      removeWindow(id_win);
+                }
+                else {
+                  chrome.runtime.sendMessage(message);
+                }
+                key = null;
+                accounts = null;
+            } catch (err) {
+              console.log(err);
+                let message = {
+                    command: "answerRequest",
+                    msg: {
+                        success: false,
+                        error: 'follow_error',
+                        result: null,
+                        data: data,
+                        message: "Error "+(data.follow?"":"un")+"following @"+data.dtuber,
+                        request_id: request_id
+                    }
+                };
+                chrome.tabs.sendMessage(tab, message);
+                chrome.runtime.sendMessage(message);
+                key = null;
+                accounts = null;
+            }
+            break;
+        case "dTubeJson":
+          try {
+              let dTubeJson = await dTubeJSONAsync(key,data.username, data.json);
+              let message = {
+                  command: "answerRequest",
+                  msg: {
+                      success: true,
+                      error: null,
+                      result: dTubeJson,
+                      data: data,
+                      message: "Successfully posted json",
+                      request_id: request_id
+                  }
+              };
+
+              chrome.tabs.sendMessage(tab, message);
+              if(no_confirm){
+                if (id_win != null)
+                    removeWindow(id_win);
+              }
+              else {
+                chrome.runtime.sendMessage(message);
+              }
+              key = null;
+              accounts = null;
+          } catch (err) {
+            console.log(err);
+              let message = {
+                  command: "answerRequest",
+                  msg: {
+                      success: false,
+                      error: 'json_error',
+                      result: null,
+                      data: data,
+                      message: "Error while posting json.",
+                      request_id: request_id
+                  }
+              };
+              chrome.tabs.sendMessage(tab, message);
+              chrome.runtime.sendMessage(message);
+              key = null;
+              accounts = null;
+          }
+          break;
+
         }
     } catch (e) {
         console.log(e);
