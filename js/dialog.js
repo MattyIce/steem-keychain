@@ -291,6 +291,22 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResp) {
               });
               $("#custom_json div").eq(0).text(JSON.stringify(msg.data.json));
               break;
+          case "dTubeComment":
+              $("#custom_data").click(function() {
+                  $("#custom_json").slideToggle();
+              });
+              $("#permlink").text(msg.data.permlink);
+              $("#custom_json div").eq(0).text(JSON.stringify(msg.data.json));
+              $("#parent_url").text(msg.data.pp);
+              $("#parent_username").text(msg.data.pa);
+              $("#tag").text(msg.data.tag);
+              $("#vote_comment").text(msg.data.vote/ 100 + " %");
+              $("#burn").text(msg.data.burn/ 100 + " DTC");
+              if (msg.data.parent_username == "" || !msg.data.parent_username ) {
+                  $("#parent_username").hide();
+                  $("#parent_username_title").hide();
+              }
+              break;
         }
 
         // Closes the window and launch the transaction in background

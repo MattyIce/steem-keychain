@@ -101,7 +101,7 @@ function validate() {
             (req.type == "dTubeNewAccount" && isFilled(req.username) && isFilled(req.publicKey)) ||
             (req.type == "dTubeLeader" && isFilled(req.username) && isFilled(req.leader) && isBoolean(req.approve)) ||
             (req.type == "dTubeTransfer" && isFilled(req.username) && isFilled(req.recipient) && isFilledAmtDTube(req.amount)) ||
-            (req.type == "dTubeComment" && isFilled(req.username) && isFilled(req.permlink) && isFilled(req.pa) && isFilled(req.pp) && isFilled(req.json) && isFilled(req.tag) && isFilledAmtDTube(req.burn) && isFilledAmtDTube(req.vote)) ||
+            (req.type == "dTubeComment" && isFilled(req.username) && isFilled(req.permlink) && isFilled(req.pa) && isFilled(req.pp) && isFilled(req.json) && isFilledAmtDTube(req.vote)) ||
             (req.type == "dTubeVote" && isFilled(req.username) && isFilled(req.permlink)&& isFilled(req.author)&& isFilled(req.tag)&& isFilledAmtDTube(req.weight) ) ||
             (req.type == "dTubeFollow" && isFilled(req.username) && isFilled(req.dtuber) && isBoolean(req.follow))||
             (req.type == "dTubeJson" && isFilled(req.username)&& isFilled(req.json))

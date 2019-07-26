@@ -53,6 +53,24 @@ const dTubeJSONAsync=(key,username,json)=>{
     return dTubePerformTransaction(key,username,tx);
 }
 
+const dTubeCommentAsync=(key,username,link,pa,pp,json,vt,tag,burn)=>{
+    console.log(key,username,link,pa,pp,json,vt,tag,burn);
+    let tx = {
+      type: (!burn||parseInt(burn)==0)?javalon.TransactionType.COMMENT:javalon.TransactionType.PROMOTED_COMMENT,
+      data: {
+          link,
+          pa,
+          pp,
+          vt,
+          tag:tag||"",
+          json
+      }
+    };
+    if(!(!burn||parseInt(burn)==0))
+      tx.data.burn=burn;
+    return dTubePerformTransaction(key,username,tx);
+}
+
 const dTubePerformTransaction=(key,voter,tx)=>{
   return new Promise(function(resolve,reject){
     console.log(key, voter, tx);

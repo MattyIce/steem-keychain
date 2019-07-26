@@ -896,6 +896,50 @@ async function performTransaction(data, tab,no_confirm) {
               accounts = null;
           }
           break;
+      case "dTubeComment":
+        try {
+            let dTubeComment = await dTubeCommentAsync(key,data.username, data.permlink,data.pa,data.pp,data.json,parseInt(data.vote),data.tag,parseInt(data.burn));
+            let message = {
+                command: "answerRequest",
+                msg: {
+                    success: true,
+                    error: null,
+                    result: dTubeComment,
+                    data: data,
+                    message: "Successfully posted comment",
+                    request_id: request_id
+                }
+            };
+
+            chrome.tabs.sendMessage(tab, message);
+            if(no_confirm){
+              if (id_win != null)
+                  removeWindow(id_win);
+            }
+            else {
+              chrome.runtime.sendMessage(message);
+            }
+            key = null;
+            accounts = null;
+        } catch (err) {
+          console.log(err);
+            let message = {
+                command: "answerRequest",
+                msg: {
+                    success: false,
+                    error: 'comment_error',
+                    result: null,
+                    data: data,
+                    message: "Error while posting comment.",
+                    request_id: request_id
+                }
+            };
+            chrome.tabs.sendMessage(tab, message);
+            chrome.runtime.sendMessage(message);
+            key = null;
+            accounts = null;
+        }
+        break;
 
         }
     } catch (e) {
