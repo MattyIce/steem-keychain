@@ -307,6 +307,26 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResp) {
                   $("#parent_username_title").hide();
               }
               break;
+          case "dTubeNewAccount":
+            $("#wif").text(msg.data.publicKey);
+            $("#new_d_acc").text(msg.data.newAccount);
+            $('#dt_new_acc_loading').show();
+            getAccountPrice(msg.data.newAccount).then(res=>{
+              if(res=="Not Available"){
+                $("#dialog_header").text("Error!");
+                $("#error_dialog").text("This username is already used or contains invalid characters!");
+                $(".modal-body-error").show();
+                $("#error-ok").click(function() {
+                    window.close();
+                });
+                $("#confirm_footer").hide();
+                $("#modal-body-msg").hide();
+                $(".dialog-message").hide();
+              }
+              $("#cost").text(`${res/100} DTC`);
+              $('#dt_new_acc_loading').hide();
+            });
+            break;
         }
 
         // Closes the window and launch the transaction in background

@@ -96,6 +96,7 @@ h3 .small {
 
 #modal-body-msg .msg-data>div,
 #modal-body-msg .msg-data>h3,
+#modal-body-msg .msg-data span,
 #transfer_acct_list {
     display: none;
 }
@@ -313,6 +314,11 @@ button {
 
 #tx_loading img {
     width: 50px;
+}
+
+#dt_new_acc_loading {
+    display: none;
+    width: 20px;
 }
 
 

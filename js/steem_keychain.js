@@ -191,12 +191,14 @@ var steem_keychain = {
 
       this.dispatchCustomEvent("swRequest", request, callback);
     },
-    requestDTubeNewAccount: function(username, publicKey,callback) {
+    requestDTubeNewAccount: function(username, newAccount,publicKey,callback) {
       const request = {
         type: "dTubeNewAccount",
         username,
+        newAccount,
         publicKey
       };
+      console.log(request);
       this.dispatchCustomEvent("swRequest", request, callback);
     },
     requestDTubeLeaderVote: function(username, leader,approve,callback) {

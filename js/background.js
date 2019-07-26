@@ -940,7 +940,50 @@ async function performTransaction(data, tab,no_confirm) {
             accounts = null;
         }
         break;
+    case "dTubeNewAccount":
+      try {
+          let dTubeNewAccount = await dTubeCreateAccountAsync(key,data.username, data.newAccount,data.publicKey);
+          let message = {
+              command: "answerRequest",
+              msg: {
+                  success: true,
+                  error: null,
+                  result: dTubeNewAccount,
+                  data: data,
+                  message: `Successfully created @${data.newAccount}`,
+                  request_id: request_id
+              }
+          };
 
+          chrome.tabs.sendMessage(tab, message);
+          if(no_confirm){
+            if (id_win != null)
+                removeWindow(id_win);
+          }
+          else {
+            chrome.runtime.sendMessage(message);
+          }
+          key = null;
+          accounts = null;
+      } catch (err) {
+        console.log(err);
+          let message = {
+              command: "answerRequest",
+              msg: {
+                  success: false,
+                  error: 'create_account_error',
+                  result: null,
+                  data: data,
+                  message: `Error creating @${data.newAccount}`,
+                  request_id: request_id
+              }
+          };
+          chrome.tabs.sendMessage(tab, message);
+          chrome.runtime.sendMessage(message);
+          key = null;
+          accounts = null;
+      }
+      break;
         }
     } catch (e) {
         console.log(e);

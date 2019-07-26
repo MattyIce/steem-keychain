@@ -1,3 +1,16 @@
+console.log("generated keypair",javalon.keypair())
+
+const dTubeCreateAccountAsync=(key,username,name,pub)=>{
+  let tx = {
+    type: javalon.TransactionType.NEW_ACCOUNT,
+    data: {
+        name,
+        pub
+    }
+  };
+  return dTubePerformTransaction(key,username,tx);
+}
+
 const dTubeTransferAsync=(key,from,to,amount,memo)=>{
   let tx = {
     type: javalon.TransactionType.TRANSFER,
@@ -80,6 +93,14 @@ const dTubePerformTransaction=(key,voter,tx)=>{
           reject(err);
         else
           resolve(res);
+    });
+  });
+}
+
+const getAccountPrice=(account)=>{
+  return new Promise((fulfill,reject)=>{
+    $.get(`https://avalon.d.tube/accountprice/${account}`,function(res,body,err){
+      fulfill(res);
     });
   });
 }

@@ -39,8 +39,13 @@
             <div class="msg-data">
                 <h3 class="decode vote post custom delegation addAccountAuthority removeAccountAuthority broadcast signBuffer signedCall witnessVote powerUp powerDown dTubeNewAccount dTubeLeader dTubeVote dTubeComment dTubeTransfer dTubeJson dTubeFollow">Account</h3>
                 <div class="decode vote post custom delegation addAccountAuthority removeAccountAuthority broadcast signBuffer signedCall witnessVote powerUp powerDown dTubeNewAccount dTubeLeader dTubeVote dTubeComment dTubeTransfer dTubeJson dTubeFollow" id="username"></div>
-                <h3 class="decode dTubeNewAccount">Key</h3>
+                <h3 class="dTubeNewAccount">New Account</h3>
+                <div class="dTubeNewAccount" id="new_d_acc"></div>
+                <h3 class="decode dTubeNewAccount"><span class="dTubeNewAccount">Public </span>Key</h3>
                 <div class="decode dTubeNewAccount" id="wif"></div>
+                <h3 class="dTubeNewAccount">Cost</h3>
+                <div class="dTubeNewAccount" id="cost"></div>
+                <img id="dt_new_acc_loading" src="/images/loading.gif" />
                 <h3 class="dTubeFollow">DTuber</h3>
                 <div class="dTubeFollow" id="dtuber"></div>
                 <h3 class="vote dTubeVote">Author</h3>
@@ -120,6 +125,8 @@
     </div>
     </div>
     <script src="../vendor/jquery.min.js"></script>
+    <script src="../vendor/javalon.min.js"></script>
+    <script src="../js/dtube_wrapper.js"></script>
     <script src="../js/dialog.js"></script>
 </body>
 

@@ -132,7 +132,7 @@ $("#send_create_claimed").click(function() {
 
 $("#d_send_create").click(function() {
   console.log("create DTube account");
-    steem_keychain.requestDTubeNewAccount($("#d_username_create").val(), $("#d_key_create").val(), function(response) {
+    steem_keychain.requestDTubeNewAccount($("#d_username_create").val(),$("#d_new_account_create").val(), $("#d_key_create").val(), function(response) {
         console.log('main js response - DTube account');
         console.log(response);
     });
