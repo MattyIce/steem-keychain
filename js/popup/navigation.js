@@ -108,7 +108,7 @@ $(".back_account_types").click(() => {
 
 $("#add_rpc_div .back_enabled").click(function() {
   chrome.storage.local.get(["rpc", "current_rpc"], function(items) {
-    loadRPC(items.rpc, items.current_rpc);
+    loadRPC(items.current_rpc);
     initiateCustomSelect();
     $("#add_rpc_div").hide();
     $("#pref_div").show();

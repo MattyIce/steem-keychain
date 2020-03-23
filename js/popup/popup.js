@@ -170,7 +170,7 @@ function initializeMainMenu() {
           decryptToJson(items.accounts, mk),
           items.last_account
         );
-      loadRPC(items.rpc, items.current_rpc);
+      loadRPC(items.current_rpc);
       console.log(accountsList.getList());
       $("#accounts").empty();
       if (!accountsList.isEmpty()) {
