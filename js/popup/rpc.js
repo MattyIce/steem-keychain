@@ -13,6 +13,8 @@ async function loadRPC(current_rpc) {
   $("#custom_select_rpc select").append(
     `<option>${chrome.i18n.getMessage("popup_rpc_add")}</option>`
   );
+  initiateCustomSelect();
+
   if (current_rpc === "TESTNET") {
     $("#currency_send select")
       .children("option:first")
