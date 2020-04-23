@@ -32,7 +32,8 @@ function setPreferences(name) {
           `<h4>${chrome.i18n.getMessage("popup_website")}: ${obj} </h4>`
         );
         var display_names = {
-          broadcast: chrome.i18n.getMessage("popup_broadcast"),
+					broadcast: chrome.i18n.getMessage("popup_broadcast"),
+					signTx: chrome.i18n.getMessage("popup_sign_tx"),
           addAccountAuthority: chrome.i18n.getMessage("popup_add_auth"),
           removeAccountAuthority: chrome.i18n.getMessage("popup_remove_auth"),
           custom: chrome.i18n.getMessage("popup_custom"),

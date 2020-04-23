@@ -143,6 +143,9 @@ const validate = () => {
         isFilled(req.role)) ||
       (req.type == "broadcast" &&
         isFilled(req.operations) &&
+				isFilled(req.method)) ||
+			(req.type == "signTx" &&
+        isFilled(req.tx) &&
         isFilled(req.method)) ||
       (req.type == "signedCall" &&
         isFilled(req.method) &&

@@ -121,6 +121,18 @@ var steem_keychain = {
     };
 
     this.dispatchCustomEvent("swRequest", request, callback);
+	},
+	
+	requestSignTx: function(account, tx, key, callback, rpc) {
+    var request = {
+      type: "signTx",
+      username: account,
+      tx,
+      method: key,
+      rpc
+    };
+
+    this.dispatchCustomEvent("swRequest", request, callback);
   },
 
   requestSignedCall: function(account, method, params, key, callback, rpc) {

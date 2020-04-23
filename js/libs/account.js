@@ -204,7 +204,7 @@ class Account {
   }
   async getDelegators() {
     const that = this;
-    let delegators = await this.delegators;
+    let delegators = (await this.delegators) || [];
     delegators = delegators.filter(function(elt) {
       return elt.vesting_shares != 0;
     });

@@ -185,7 +185,7 @@ const checkBeforeCreate = (request, tab, domain) => {
 const hasNoConfirm = (arr, data, domain, current_rpc) => {
   try {
     if (
-      data.method == "active" ||
+      data.method == "active" || data.method == "Active" ||
       arr == undefined ||
       current_rpc === "TESTNET" ||
       domain === "steemit.com"
@@ -219,6 +219,7 @@ const getRequiredWifType = request => {
     case "removeKeyAuthority":
     case "addKeyAuthority":
     case "broadcast":
+		case "signTx":
       return request.method.toLowerCase();
     case "signedCall":
       return request.typeWif.toLowerCase();
