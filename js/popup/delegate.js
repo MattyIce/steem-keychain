@@ -1,4 +1,25 @@
 const prepareDelegationTab = async () => {
+  $("#send_del")
+    .unbind("click")
+    .click(function() {
+      $("#send_del").hide();
+      $("#del_loading").show();
+      activeAccount.delegateSP(
+        $("#amt_del").val(),
+        $("#username_del").val(),
+        function(err, result) {
+          console.log(err, result);
+          $("#send_del").show();
+          $("#del_loading").hide();
+          if (err) {
+            showError(chrome.i18n.getMessage("unknown_error"));
+          } else {
+            showConfirm(chrome.i18n.getMessage("popup_delegate_success"));
+            loadAccount(activeAccount.getName());
+          }
+        }
+      );
+    });
   const [delegatees, delegators] = [
     await activeAccount.getDelegatees(),
     await activeAccount.getDelegators()
@@ -25,28 +46,6 @@ const prepareDelegationTab = async () => {
   displayDelegationMain(delegators, delegatees);
   displayOutgoingDelegations(delegatees);
   displayIncomingDelegations(delegators);
-
-  $("#send_del")
-    .unbind("click")
-    .click(function() {
-      $("#send_del").hide();
-      $("#del_loading").show();
-      activeAccount.delegateSP(
-        $("#amt_del").val(),
-        $("#username_del").val(),
-        function(err, result) {
-          console.log(err, result);
-          $("#send_del").show();
-          $("#del_loading").hide();
-          if (err) {
-            showError(chrome.i18n.getMessage("unknown_error"));
-          } else {
-            showConfirm(chrome.i18n.getMessage("popup_delegate_success"));
-            loadAccount(activeAccount.getName());
-          }
-        }
-      );
-    });
 };
 
 function getSumOutgoing(delegatees) {
