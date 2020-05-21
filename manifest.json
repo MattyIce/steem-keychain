@@ -2,7 +2,7 @@
   "name": "__MSG_keychain__",
   "description": "__MSG_description__",
   "default_locale": "en",
-  "version": "1.7.4.1",
+  "version": "1.7.5",
   "permissions": [
     "activeTab",
     "declarativeContent",
@@ -43,7 +43,8 @@
       "js/background/keychainify.js",
       "js/background/auth.js",
       "js/background/ops/authority.js",
-      "js/background/ops/broadcast.js",
+			"js/background/ops/broadcast.js",
+			"js/background/ops/signTx.js",
       "js/background/ops/createAccount.js",
       "js/background/ops/customJson.js",
       "js/background/ops/decode.js",
