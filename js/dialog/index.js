@@ -462,7 +462,7 @@ const getSteemPower = async vesting_shares => {
 };
 
 const getTokens = async account => {
-  const ssc = new SSC("https://api.steem-engine.com/rpc");
+  const ssc = new SSC("https://api.steem-engine.net/rpc");
   return await ssc.find("tokens", "balances", {account});
 };
 

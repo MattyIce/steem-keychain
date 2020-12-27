@@ -199,7 +199,7 @@ and "key_type" can be "Posting" or "Active".
 ### Send Tokens
 
 Sites can request that Keychain broadcasts a JSON with active authority to transfer tokens to another user.
-This works with tokens generated using [Steem Engine](https://steem-engine.com).
+This works with tokens generated using [Steem Engine](https://steem-engine.net).
 
 ```
 steem_keychain.requestSendToken(username, to,amount,memo, token, function(response) {
